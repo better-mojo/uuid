@@ -1,0 +1,66 @@
+version: "3"
+
+#
+# sub namespace: https://taskfile.dev/#/usage?id=including-other-taskfiles
+#
+includes:
+  uuid-ffi:
+    aliases: [ "uf" ]
+    taskfile: ./packages/uuid-ffi/
+    dir: ./packages/uuid-ffi/
+    optional: true
+
+
+#
+# global vars: https://taskfile.dev/#/usage?id=variables
+#
+vars:
+  VAR1: "some-var"
+
+# global env:
+env:
+  ENV1: testing
+  WORKSPACE: "crates/"
+
+# env file:
+dotenv:
+  - .env
+
+################################################################################################
+
+tasks:
+  dev:
+    cmds:
+      - rustup toolchain install nightly
+      - rustup toolchain list
+
+
+  ###########################################################################
+
+  quick:
+    aliases: [ "q" ]
+    cmds:
+      - task: commit
+      - task: commit
+      - git status
+      - task: push
+    ignore_error: true
+
+  commit:
+    aliases: [ "c" ]
+    cmds:
+      - git add .
+      - git commit -m "update" --no-verify
+    ignore_error: true
+
+
+  pull:
+    aliases: [ "pl" ]
+    cmds:
+      - git pull
+
+  push:
+    aliases: [ "p" ]
+    cmds:
+      - git push origin main --tags
+      - repo_url=`git remote -v | grep push | awk -F ":" '{print $2}' | awk -F ".git" '{print "https://github.com/"$1}'`; open $repo_url
