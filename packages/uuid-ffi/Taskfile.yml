@@ -11,3 +11,7 @@ tasks:
     cmds:
       - RUST_LOG=info cargo run --bin v4
 
+  release:
+    aliases: [ "rel" ]
+    cmds:
+      - RUST_LOG=info cargo build --release

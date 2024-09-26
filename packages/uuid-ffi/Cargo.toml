@@ -15,7 +15,9 @@ name = "v7"
 path = "examples/v7.rs"
 
 
-
+[lib]
+name = "uuid"
+crate-type = ["cdylib"]
 
 [dependencies]
 uuid = { version = "1.10.0", features = ["v4", "v7"] }
