@@ -3,4 +3,19 @@ name = "uuid-ffi"
 version = "0.1.0"
 edition = "2021"
 
+
+
+[[bin]]
+name = "v4"
+path = "examples/v4.rs"
+
+
+[[bin]]
+name = "v7"
+path = "examples/v7.rs"
+
+
+
+
 [dependencies]
+uuid = { version = "1.10.0", features = ["v4", "v7"] }

@@ -1,8 +1,13 @@
 version: "3"
 
 tasks:
-  run:
-    aliases: [ "r" ]
+  run:v4:
+    aliases: [ "r4" ]
     cmds:
-      - RUST_LOG=info cargo run --bin hello
+      - RUST_LOG=info cargo run --bin v4
+
+  run:v7:
+    aliases: [ "r7" ]
+    cmds:
+      - RUST_LOG=info cargo run --bin v4
 
