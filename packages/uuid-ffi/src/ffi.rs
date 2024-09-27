@@ -10,8 +10,8 @@ pub extern "C" fn new_v4() -> *const c_char {
     println!("uuid: {:?}", uuid);
 
     let c_string = CString::new(uuid).unwrap().into_raw();
-    // CString::new(uuid).unwrap().as_ptr()
-
+    // let c_string = CString::new(uuid).unwrap().as_ptr();
+    
     // 手动释放内存
     unsafe {
         let _ = libc::free(c_string as *mut c_void);
