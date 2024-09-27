@@ -21,6 +21,7 @@ crate-type = ["cdylib", "rlib", "staticlib"]
 
 [dependencies]
 uuid = { version = "1.10.0", features = ["v4", "v7"] }
+libc = "0.2.159"
 #libc = "0.2.159"
 
 [build-dependencies]

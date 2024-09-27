@@ -1,4 +1,4 @@
-use std::ffi::CString;
+use std::ffi::{c_void, CString};
 use std::os::raw::c_char;
 use uuid::Uuid;
 
@@ -9,12 +9,15 @@ pub extern "C" fn new_v4() -> *const c_char {
 
     println!("uuid: {:?}", uuid);
 
-    CString::new(uuid).unwrap().into_raw()
+    let c_string = CString::new(uuid).unwrap().into_raw();
     // CString::new(uuid).unwrap().as_ptr()
 
-    // 将字符串转换为C字符串
-    // let c_str = CStr::from_bytes_with_nul(uuid.as_bytes()).unwrap();
-    // CString { ptr: c_str.as_ptr(), len: uuid.len() }
+    // 手动释放内存
+    unsafe {
+        let _ = libc::free(c_string as *mut c_void);
+    }
+
+    c_string
 }
 
 
@@ -24,7 +27,14 @@ pub extern "C" fn now_v7() -> *const c_char {
 
     // 将 UUID 转换为字符串
     println!("uuid: {:?}", uuid);
-    CString::new(uuid).unwrap().into_raw()
+    let c_string = CString::new(uuid).unwrap().into_raw();
+
+    // 手动释放内存
+    unsafe {
+        let _ = libc::free(c_string as *mut c_void);
+    }
+
+    c_string
 }
 
 
