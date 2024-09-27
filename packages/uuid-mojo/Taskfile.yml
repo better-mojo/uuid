@@ -1,0 +1,7 @@
+version: "3"
+
+tasks:
+  run:
+    aliases: [ "r" ]
+    cmds:
+      - RUST_BACKTRACE=full magic run mojo src/main.mojo

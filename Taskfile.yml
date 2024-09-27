@@ -10,6 +10,11 @@ includes:
     dir: ./packages/uuid-ffi/
     optional: true
 
+  uuid-mojo:
+    aliases: [ "um", "mojo" ]
+    taskfile: ./packages/uuid-mojo/
+    dir: ./packages/uuid-mojo/
+    optional: true
 
 #
 # global vars: https://taskfile.dev/#/usage?id=variables
@@ -29,6 +34,13 @@ dotenv:
 ################################################################################################
 
 tasks:
+  rel:
+    cmds:
+      - task: uf:del
+      - task: uf:rel
+      - cp -r target/release/libuuid_ffi.dylib packages/uuid-mojo/dylib/
+      - task: um:run
+
   dev:
     cmds:
       - rustup toolchain install nightly

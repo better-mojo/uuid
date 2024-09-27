@@ -1,7 +1,7 @@
-from lib import new_v4
+from lib import new_v4, new_v7
 # from testing import assert_equal
 
 
 def main():
-
     print(new_v4())
+#     print(new_v7())
