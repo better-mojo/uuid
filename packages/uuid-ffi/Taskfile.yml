@@ -11,7 +11,17 @@ tasks:
     cmds:
       - RUST_LOG=info cargo run --bin v4
 
+  test:
+    aliases: [ "t" ]
+    cmds:
+      - RUST_LOG=info cargo test --lib
+
   release:
     aliases: [ "rel" ]
     cmds:
-      - RUST_LOG=info cargo build --release
+      - RUST_BACKTRACE=full RUST_LOG=info cargo build --release # CARGO_PROFILE_RELEASE_BUILD_OVERRIDE_DEBUG=true
+
+  clean:
+    aliases: [ "cl", 'del' ]
+    cmds:
+      - cargo clean

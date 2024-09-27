@@ -16,8 +16,13 @@ path = "examples/v7.rs"
 
 
 [lib]
-name = "uuid"
-crate-type = ["cdylib"]
+name = "uuid_ffi"
+crate-type = ["cdylib", "rlib", "staticlib"]
 
 [dependencies]
 uuid = { version = "1.10.0", features = ["v4", "v7"] }
+#libc = "0.2.159"
+
+[build-dependencies]
+cbindgen = "0.27.0"
+

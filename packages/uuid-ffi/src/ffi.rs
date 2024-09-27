@@ -1,36 +1,30 @@
 use std::ffi::CString;
+use std::os::raw::c_char;
 use uuid::Uuid;
 
 
-#[repr(C)]
-#[derive(Debug)]
-pub struct Str {
-    pub data: String,
+#[no_mangle]
+pub extern "C" fn new_v4() -> *const c_char {
+    let uuid = Uuid::new_v4().to_string();
+
+    println!("uuid: {:?}", uuid);
+
+    CString::new(uuid).unwrap().into_raw()
+    // CString::new(uuid).unwrap().as_ptr()
+
+    // 将字符串转换为C字符串
+    // let c_str = CStr::from_bytes_with_nul(uuid.as_bytes()).unwrap();
+    // CString { ptr: c_str.as_ptr(), len: uuid.len() }
 }
 
 
 #[no_mangle]
-pub extern "C" fn new_v4() -> Str {
-    let uuid = Uuid::new_v4();
+pub extern "C" fn now_v7() -> *const c_char {
+    let uuid = Uuid::now_v7().to_string();
 
     // 将 UUID 转换为字符串
-    let uuid_str = uuid.to_string();
-
-    Str { data: uuid_str }
-
-    // 将字符串转换为 C 字符串
-    // let c_str = CString::new(uuid_str).unwrap();
-    // c_str.into_raw()
-}
-
-
-#[no_mangle]
-pub extern "C" fn now_v7() -> CString {
-    let uuid = Uuid::now_v7();
-
-    // 将 UUID 转换为字符串
-    let uuid_str = uuid.to_string();
-    CString::new(uuid_str).unwrap()
+    println!("uuid: {:?}", uuid);
+    CString::new(uuid).unwrap().into_raw()
 }
 
 
