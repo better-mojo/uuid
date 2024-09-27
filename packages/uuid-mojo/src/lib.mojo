@@ -14,6 +14,16 @@ def new_v4() -> UnsafePointer[UInt8]:
     return uuid
 
 
+def new_v4_2() -> Bool:
+    _fn_new_v4_2 = h.get_function[fn(UnsafePointer[UInt8], UInt) -> Bool]("new_v4_2")
+
+    var size = 128
+    var out = UnsafePointer[UInt8].alloc(size)
+
+    var ret = _fn_new_v4_2(out, size)
+    print("mojo get uuid v4_2: ", out)
+    return ret
+
 def new_v7()  -> UnsafePointer[UInt8]:
     _fn_new_v7 = h.get_function[fn() -> UnsafePointer[UInt8]]("new_v7")
 
