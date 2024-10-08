@@ -11,6 +11,11 @@ tasks:
     cmds:
       - RUST_LOG=info cargo run --bin v4
 
+
+  check:
+    cmds:
+      - RUSTFLAGS="-Z sanitizer=leak" cargo +nightly build
+
   test:
     aliases: [ "t" ]
     cmds:
