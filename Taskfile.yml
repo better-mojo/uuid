@@ -41,6 +41,11 @@ tasks:
       - cp -r target/release/libuuid_ffi.dylib packages/uuid-mojo/dylib/
       - task: um:run
 
+  build:
+    aliases: [ "b" ]
+    cmds:
+      - rattler-build build --recipe recipes/ -c https://conda.modular.com/max -c conda-forge --skip-existing=all
+
   dev:
     cmds:
       - rustup toolchain install nightly

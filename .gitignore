@@ -42,3 +42,4 @@ tmp/
 !.env.local
 dylib/
 *.dylib
+output/

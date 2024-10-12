@@ -4,14 +4,13 @@ version = "0.1.0"
 edition = "2021"
 
 
-
 [[bin]]
-name = "v4"
+name = "uuid_v4"
 path = "examples/v4.rs"
 
 
 [[bin]]
-name = "v7"
+name = "uuid_v7"
 path = "examples/v7.rs"
 
 

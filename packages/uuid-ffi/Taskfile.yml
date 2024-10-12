@@ -21,6 +21,42 @@ tasks:
     cmds:
       - RUST_LOG=info cargo test --lib
 
+
+  build:
+    aliases: [ "b" ]
+    cmds:
+      - rattler-build build --recipe ./recipes/recipe.yaml -c https://conda.modular.com/max -c conda-forge --skip-existing=all
+
+  #
+  # ref: https://taskfile.dev/usage/#looping-over-variables
+  #
+  publish:
+    aliases: [ "up", "pub", "pub:auto" ]
+    vars:
+      UP_PKGS:
+        sh: find . -name "*.conda" -type f
+    cmds:
+      - echo {{ .UP_PKGS }}
+      - for: { var: UP_PKGS }
+        cmd:
+          |
+          magic run rattler-build upload prefix -c "jojo" \
+            --api-key=$PREFIX_DEV_API_KEY \
+            {{.ITEM}}
+
+  publish:manual:
+    aliases: [ "pub:m", "up:m" ]
+    cmds:
+      - echo $PREFIX_DEV_API_KEY
+      - |
+        magic run rattler-build upload prefix -c "jojo" \
+          --api-key=$PREFIX_DEV_API_KEY \
+          output/osx-arm64/jojo-core-0.1.1-h60d57d3_0.conda
+      - open https://prefix.dev/channels/jojo
+    ignore_error: true
+
+
+
   release:
     aliases: [ "rel" ]
     cmds:
@@ -29,4 +65,5 @@ tasks:
   clean:
     aliases: [ "cl", 'del' ]
     cmds:
-      - cargo clean
+      - rm -rf output/
+#      - cargo clean
