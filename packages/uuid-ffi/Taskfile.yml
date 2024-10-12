@@ -1,6 +1,10 @@
 version: "3"
 
 tasks:
+  init:pixi:
+    cmds:
+      - pixi init .
+
   run:v4:
     aliases: [ "r4" ]
     cmds:
