@@ -5,6 +5,17 @@ tasks:
     cmds:
       - pixi init .
 
+  # ref: https://pixi.sh/dev/tutorials/rust/#add-rust-dependencies
+  setup:pixi:
+    cmds:
+      - pixi add rust
+      - pixi task add build "cargo build"
+
+  pixi:build:
+    aliases: [ "pb" ]
+    cmds:
+      - pixi run cargo build
+
   run:v4:
     aliases: [ "r4" ]
     cmds:
@@ -29,7 +40,7 @@ tasks:
   build:
     aliases: [ "b" ]
     cmds:
-      - rattler-build build --recipe ./recipes/recipe.yaml -c https://conda.modular.com/max -c conda-forge --skip-existing=all
+      - rattler-build build --recipe ./re/recipe.yaml -c https://conda.modular.com/max -c conda-forge --skip-existing=all
 
   #
   # ref: https://taskfile.dev/usage/#looping-over-variables

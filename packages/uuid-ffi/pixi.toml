@@ -7,5 +7,7 @@ platforms = ["osx-arm64"]
 version = "0.1.0"
 
 [tasks]
+build = "cargo build"
 
 [dependencies]
+rust = ">=1.81.0,<2"
