@@ -11,3 +11,4 @@ build = "cargo build"
 
 [dependencies]
 rust = ">=1.81.0,<2"
+conda-build = ">=24.9.0,<25"

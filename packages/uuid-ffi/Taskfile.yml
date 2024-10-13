@@ -11,6 +11,16 @@ tasks:
       - pixi add rust
       - pixi task add build "cargo build"
 
+  pkg:
+    cmds:
+      - echo "pixi cli:"
+      - pixi {{.CLI_ARGS}}
+
+  conda-build:
+    aliases: [ "cb" ]
+    cmds:
+      - pixi run conda-build {{.CLI_ARGS}}
+
   pixi:build:
     aliases: [ "pb" ]
     cmds:
@@ -40,7 +50,7 @@ tasks:
   build:
     aliases: [ "b" ]
     cmds:
-      - rattler-build build --recipe ./re/recipe.yaml -c https://conda.modular.com/max -c conda-forge --skip-existing=all
+      - rattler-build build --recipe recipe.yaml -c https://conda.modular.com/max -c conda-forge --skip-existing=all
 
   #
   # ref: https://taskfile.dev/usage/#looping-over-variables
