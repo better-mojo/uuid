@@ -1,7 +1,26 @@
 version: "3"
 
 tasks:
+  pkg:
+    aliases: [ 'pm', 'magic' ]
+    cmds:
+      - magic {{.CLI_ARGS}}
+
+  init:
+    cmds:
+      - magic project channel add "conda-forge"
+      - magic project channel add "https://conda.modular.com/max"
+      - magic project channel add "https://repo.prefix.dev/mojo-community"
+      - magic project channel add "https://repo.prefix.dev/jojo"
+      - magic project channel add "https://repo.prefix.dev/better-ffi"
+      - magic project channel add "https://repo.prefix.dev/better-mojo"
+
+  add:all:
+    cmds:
+      - magic add libuuid_ffi
+
   run:
     aliases: [ "r" ]
     cmds:
       - RUST_BACKTRACE=full magic run mojo src/main.mojo
+
