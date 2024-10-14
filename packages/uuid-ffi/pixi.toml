@@ -2,7 +2,7 @@
 authors = ["hhglory <hhglory@outlook.com>"]
 channels = ["conda-forge"]
 description = "Add a short description here"
-name = "uuid-ffi"
+name = "libuuid-ffi"
 platforms = ["osx-arm64"]
 version = "0.1.0"
 

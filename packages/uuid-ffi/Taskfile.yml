@@ -63,6 +63,7 @@ tasks:
     aliases: [ "b" ]
     cmds:
       - rattler-build build --recipe recipes/recipe.yaml -c https://conda.modular.com/max -c conda-forge --skip-existing=all
+      - open output/
 
   #
   # ref: https://taskfile.dev/usage/#looping-over-variables
