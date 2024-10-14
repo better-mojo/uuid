@@ -16,10 +16,11 @@ tasks:
       - echo "pixi cli:"
       - pixi {{.CLI_ARGS}}
 
-  conda-build:
+  conda:build:
     aliases: [ "cb" ]
     cmds:
-      - pixi run conda-build {{.CLI_ARGS}}
+      #      - pixi run conda-build {{.CLI_ARGS}}
+      - pixi run conda-build recipes/conda-build/ --debug
 
   pixi:build:
     aliases: [ "pb" ]

@@ -1,0 +1,25 @@
+package:
+  name: "uuid_ffi"
+  version: "0.1.1"
+
+  #
+  # ref: https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#source-from-a-local-path
+  #
+source:
+  path: ../../  # TODO X: 包含 cargo.toml 的路径!!!
+
+#build:
+#  script: build.sh     # 指定构建脚本
+build:
+  number: 0
+
+#requirements:
+#  build:
+#    - { { compiler('rust') } }
+
+about:
+  home: https://github.com/better-mojo/uuid
+  summary: "uuid-rs bindings for mojo"
+  license: Apache-2.0
+  doc_url: https://github.com/better-mojo/uuid
+
