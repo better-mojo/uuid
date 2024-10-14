@@ -43,5 +43,5 @@ requirements:
 about:
   homepage: https://github.com/better-mojo/uuid
   license: MIT
-  summary: "Core library for Jojo web framework - better-mojo"
+  summary: "uuid-rs ffi for mojo"
   repository: https://github.com/better-mojo/uuid

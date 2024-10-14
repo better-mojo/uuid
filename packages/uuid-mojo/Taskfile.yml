@@ -19,8 +19,44 @@ tasks:
     cmds:
       - magic add libuuid_ffi
 
+  add:dev:
+    aliases: [ "ad" ]
+    cmds:
+      - magic add rattler-build --feature dev
+      - pixi global install rattler-build
+
   run:
     aliases: [ "r" ]
     cmds:
       - RUST_BACKTRACE=full magic run mojo src/main.mojo
 
+  #
+  # 打包 .conda, 待发布
+  #
+  build:
+    aliases: [ "b" ]
+    cmds:
+      - mkdir -p build/
+      - magic run build
+      - open output/
+    ignore_error: true
+
+
+  #
+  # ref: https://taskfile.dev/usage/#looping-over-variables
+  #
+  publish:
+    aliases: [ "up", "pub", "pub:auto" ]
+    vars:
+      UP_PKGS:
+        sh: find . -name "*.conda" -type f
+    cmds:
+      - echo {{ .UP_PKGS }}
+      - for: { var: UP_PKGS }
+        cmd:
+          |
+          magic run rattler-build upload prefix -c "better-mojo" \
+            --api-key=$PREFIX_DEV_API_KEY \
+            {{.ITEM}}
+      - open https://prefix.dev/channels/better-mojo
+    dir: output/

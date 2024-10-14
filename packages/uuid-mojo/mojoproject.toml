@@ -7,7 +7,13 @@ platforms = ["osx-arm64"]
 version = "0.1.0"
 
 [tasks]
+build = { cmd = "rattler-build build --recipe recipes/ -c https://conda.modular.com/max -c conda-forge --skip-existing=all" }
+package = { cmd = "mojo package src/uuid_mojo -o build/uuid_mojo.mojopkg"}
+
 
 [dependencies]
 max = ">=24.5.0,<25"
 libuuid_ffi = ">=0.1.1,<0.2"
+
+[feature.dev.dependencies]
+rattler-build = "*"
