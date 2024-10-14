@@ -78,9 +78,10 @@ tasks:
       - for: { var: UP_PKGS }
         cmd:
           |
-          magic run rattler-build upload prefix -c "jojo" \
+          magic run rattler-build upload prefix -c "better-ffi" \
             --api-key=$PREFIX_DEV_API_KEY \
             {{.ITEM}}
+      - open https://prefix.dev/channels/better-ffi
 
   publish:manual:
     aliases: [ "pub:m", "up:m" ]
