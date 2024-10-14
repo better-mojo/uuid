@@ -77,6 +77,14 @@ tasks:
   examples:add:
     aliases: ["exa"]
     cmds:
-      - magic add uuid_mojo
+      - magic add uuid_mojo libuuid_ffi
     dir: examples/try-uuid-mojo
+
+  examples:run:
+    aliases: ["exr"]
+    cmds:
+      - magic run mojo src/main.mojo
+    dir: examples/try-uuid-mojo
+
+
 

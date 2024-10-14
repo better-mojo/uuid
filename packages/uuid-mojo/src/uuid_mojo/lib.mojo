@@ -2,6 +2,10 @@ from sys import ffi
 from memory.unsafe_pointer import UnsafePointer
 from sys import os_is_macos
 
+fn version() -> String:
+    print("uuid mojo: 0.1.2")
+    return "0.1.2"
+
 # os platform:
 fn get_libname() -> StringLiteral:
     @parameter
@@ -15,7 +19,7 @@ fn get_libname() -> StringLiteral:
 var h = ffi.DLHandle(get_libname())
 
 
-def new_v4() -> UnsafePointer[UInt8]:
+fn new_v4() -> UnsafePointer[UInt8]:
     var _fn_new_v4 = h.get_function[fn() -> UnsafePointer[UInt8]]("new_v4")
 
     var uuid = _fn_new_v4()
@@ -23,7 +27,7 @@ def new_v4() -> UnsafePointer[UInt8]:
     return uuid
 
 
-def new_v4_2() -> Bool:
+fn new_v4_2() -> Bool:
     _fn_new_v4_2 = h.get_function[fn(UnsafePointer[UInt8], UInt) -> Bool]("new_v4_2")
 
     var size = 128
@@ -33,7 +37,7 @@ def new_v4_2() -> Bool:
     print("mojo get uuid v4_2: ", out)
     return ret
 
-def new_v7()  -> UnsafePointer[UInt8]:
+fn new_v7()  -> UnsafePointer[UInt8]:
     _fn_new_v7 = h.get_function[fn() -> UnsafePointer[UInt8]]("new_v7")
 
     var uuid = _fn_new_v7()

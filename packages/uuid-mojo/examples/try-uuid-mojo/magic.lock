@@ -29,6 +29,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libopenblas-0.3.27-openmp_h517c56d_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libsodium-1.0.20-h99b78c6_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libsqlite-3.46.1-hc14010f_0.conda
+      - conda: https://repo.prefix.dev/better-ffi/osx-arm64/libuuid_ffi-0.1.1-h60d57d3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libzlib-1.3.1-h8359307_2.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/llvm-openmp-19.1.1-h6cdba0f_0.conda
       - conda: https://conda.modular.com/max/noarch/max-24.5.0-release.conda
@@ -370,6 +371,20 @@ packages:
   license: Unlicense
   size: 829500
   timestamp: 1725353720793
+- kind: conda
+  name: libuuid_ffi
+  version: 0.1.1
+  build: h60d57d3_0
+  subdir: osx-arm64
+  url: https://repo.prefix.dev/better-ffi/osx-arm64/libuuid_ffi-0.1.1-h60d57d3_0.conda
+  sha256: 567802b7a557571f8de23ad1f119bdeb4b65364e5374d349bdc085289b812ffa
+  constrains:
+  - __osx >=11.0
+  arch: arm64
+  platform: osx
+  license: MIT
+  size: 4521592
+  timestamp: 1728896100085
 - kind: conda
   name: libzlib
   version: 1.3.1
