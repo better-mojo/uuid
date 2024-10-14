@@ -54,7 +54,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/tornado-6.4.1-py312h024a12e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/traitlets-5.14.3-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/tzdata-2024b-hc8b5060_0.conda
-      - conda: https://repo.prefix.dev/better-mojo/osx-arm64/uuid_mojo-0.1.1-h60d57d3_0.conda
+      - conda: https://repo.prefix.dev/better-mojo/osx-arm64/uuid_mojo-0.1.3-h60d57d3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/xz-5.2.6-h57fd34a_0.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h9f5b81c_6.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-3.20.2-pyhd8ed1ab_0.conda
@@ -782,18 +782,18 @@ packages:
   timestamp: 1728047496079
 - kind: conda
   name: uuid_mojo
-  version: 0.1.1
+  version: 0.1.3
   build: h60d57d3_0
   subdir: osx-arm64
-  url: https://repo.prefix.dev/better-mojo/osx-arm64/uuid_mojo-0.1.1-h60d57d3_0.conda
-  sha256: 09291120783dfa95ae8752c98ea2a4c5fac1bcee3538cec90d9cc5f86476a128
+  url: https://repo.prefix.dev/better-mojo/osx-arm64/uuid_mojo-0.1.3-h60d57d3_0.conda
+  sha256: e3a1559b79f80c6f1b171f9b797ac20aafb4be73c96840be28f05d90e1dff6aa
   depends:
   - max >=24.5.0
   arch: arm64
   platform: osx
   license: MIT
-  size: 243521
-  timestamp: 1728898881970
+  size: 243746
+  timestamp: 1728903335110
 - kind: conda
   name: xz
   version: 5.2.6
