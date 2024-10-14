@@ -2,18 +2,20 @@ package:
   name: "uuid_ffi"
   version: "0.1.1"
 
-  #
-  # ref: https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#source-from-a-local-path
-  #
+#
+# ref: https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#source-from-a-local-path
+#   - TODO X: 相对路径有bug，改为 github url 格式！！！
+#   - TODO X: 包含 cargo.toml 的路径!!!
+#
 source:
-  path: ../  # TODO X: 包含 cargo.toml 的路径!!!
+  path: ../
 
 
 build:
   script: build.sh     # 指定构建脚本
 
-  #build:
-  #  number: 0
+#build:
+#  number: 0
 
 #build:
 #  number: 0

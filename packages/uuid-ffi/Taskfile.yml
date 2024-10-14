@@ -16,12 +16,21 @@ tasks:
       - echo "pixi cli:"
       - pixi {{.CLI_ARGS}}
 
+  conda:init:
+    aliases: [ "ci" ]
+    cmds:
+      - pixi run conda config --add channels conda-forge
+      - pixi run conda config --add channels defaults
+      - pixi run conda config --show channels
+
   conda:build:
     aliases: [ "cb" ]
     cmds:
       - mkdir -p output/
       #      - pixi run conda-build {{.CLI_ARGS}}
-      - pixi run conda-build ./conda-build/ --output-folder output/  --debug
+      - |
+        pixi run conda-build ./conda-build/ \          
+          --output-folder output/  # --debug --config ./conda-build/conda_build_config.yaml \
 
   pixi:build:
     aliases: [ "pb" ]
