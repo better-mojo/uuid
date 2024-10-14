@@ -1,4 +1,4 @@
-from lib import new_v4, new_v7, new_v4_2
+from uuid_mojo import new_v4, new_v7, new_v4_2
 # from testing import assert_equal
 
 
