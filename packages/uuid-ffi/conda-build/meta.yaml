@@ -8,18 +8,19 @@ package:
 #   - TODO X: 包含 cargo.toml 的路径!!!
 #
 source:
-  path: ../
+#  path: ../
+  folder: ../
 
+
+#build:
+#  script: build.sh     # 指定构建脚本
+
+#build:
+#  number: 0
 
 build:
-  script: build.sh     # 指定构建脚本
-
-#build:
-#  number: 0
-
-#build:
-#  number: 0
-#  script: cargo build --release --lib
+  number: 0
+  script: pixi run cargo build --release --lib
 
 #
 # TODO X: 注意 format 工具,错误修改 {{ -> { {, 会导致编译报错!!!

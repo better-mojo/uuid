@@ -30,7 +30,7 @@ tasks:
       #      - pixi run conda-build {{.CLI_ARGS}}
       - |
         pixi run conda-build ./conda-build/ \          
-          --output-folder output/  # --debug --config ./conda-build/conda_build_config.yaml \
+          --output-folder output/   --debug # --config ./conda-build/conda_build_config.yaml \
 
   pixi:build:
     aliases: [ "pb" ]
