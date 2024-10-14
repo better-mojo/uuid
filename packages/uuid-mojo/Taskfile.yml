@@ -60,3 +60,23 @@ tasks:
             {{.ITEM}}
       - open https://prefix.dev/channels/better-mojo
     dir: output/
+
+
+
+  examples:init:
+    aliases: ["exi"]
+    cmds:
+      - magic project channel add "conda-forge"
+      - magic project channel add "https://conda.modular.com/max"
+      - magic project channel add "https://repo.prefix.dev/mojo-community"
+      - magic project channel add "https://repo.prefix.dev/jojo"
+      - magic project channel add "https://repo.prefix.dev/better-ffi"
+      - magic project channel add "https://repo.prefix.dev/better-mojo"
+    dir: examples/try-uuid-mojo
+
+  examples:add:
+    aliases: ["exa"]
+    cmds:
+      - magic add uuid_mojo
+    dir: examples/try-uuid-mojo
+
