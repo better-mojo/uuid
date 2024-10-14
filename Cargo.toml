@@ -7,7 +7,7 @@ members = [
 
 exclude = [
     "tmp", # 不需要 ** 子目录
-    "packages/uuid-ffi",
+    "packages/uuid-ffi/ffigen",
 ]
 
 

@@ -8,7 +8,7 @@ package:
 #   - TODO X: 包含 cargo.toml 的路径!!!
 #
 source:
-#  path: ../
+  path: ../
   folder: ../
 
 

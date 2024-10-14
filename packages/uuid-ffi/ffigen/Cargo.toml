@@ -3,6 +3,8 @@ name = "uuid-ffi"
 version = "0.1.0"
 edition = "2021"
 
+[workspace]
+
 
 [[bin]]
 name = "uuid_v4"

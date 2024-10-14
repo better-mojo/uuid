@@ -45,3 +45,8 @@ dylib/
 *.so
 *.dll
 output/
+
+
+# pixi environments
+.pixi
+*.egg-info

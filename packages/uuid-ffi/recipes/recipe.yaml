@@ -12,7 +12,7 @@ package:
   version: 0.1.1
 
 source:
-  - path: ../    # TODO X: 包含 cargo.toml 的路径!!!
+  - path: ../ffigen/    # TODO X: 包含 cargo.toml 的路径!!!
 
 
 build:
