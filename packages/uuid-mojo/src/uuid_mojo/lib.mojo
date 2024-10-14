@@ -1,9 +1,18 @@
 from sys import ffi
 from memory.unsafe_pointer import UnsafePointer
+from sys import os_is_macos
 
+# os platform:
+fn get_libname() -> StringLiteral:
+    @parameter
+    if os_is_macos():
+        return "libuuid_ffi.dylib"
+    else:
+        return "libuuid_ffi.so"
 
 # global use
-var h = ffi.DLHandle("dylib/libuuid_ffi.dylib")
+# var h = ffi.DLHandle("dylib/libuuid_ffi.dylib")
+var h = ffi.DLHandle(get_libname())
 
 
 def new_v4() -> UnsafePointer[UInt8]:
