@@ -50,3 +50,6 @@ output/
 # pixi environments
 .pixi
 *.egg-info
+
+# mojo env
+.magic

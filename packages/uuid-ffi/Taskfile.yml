@@ -82,6 +82,8 @@ tasks:
             --api-key=$PREFIX_DEV_API_KEY \
             {{.ITEM}}
       - open https://prefix.dev/channels/better-ffi
+    dir: output/
+
 
   publish:manual:
     aliases: [ "pub:m", "up:m" ]
