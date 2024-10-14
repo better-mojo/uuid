@@ -41,6 +41,16 @@ tasks:
       - open output/
     ignore_error: true
 
+  clean:
+    cmds:
+      - rm -rf output/
+    ignore_error: true
+
+  clean:build:
+    aliases: [ 'cb', 'bc' ]
+    cmds:
+      - task: clean
+      - task: build
 
   #
   # ref: https://taskfile.dev/usage/#looping-over-variables
@@ -61,10 +71,17 @@ tasks:
       - open https://prefix.dev/channels/better-mojo
     dir: output/
 
-
+  #
+  # 快捷发布：
+  #
+  clean:build:publish:
+    aliases: [ 'quick', 'upc' ]
+    cmds:
+      - task: clean:build
+      - task: up
 
   examples:init:
-    aliases: ["exi"]
+    aliases: [ "exi" ]
     cmds:
       - magic project channel add "conda-forge"
       - magic project channel add "https://conda.modular.com/max"
@@ -75,13 +92,13 @@ tasks:
     dir: examples/try-uuid-mojo
 
   examples:add:
-    aliases: ["exa"]
+    aliases: [ "exa" ]
     cmds:
       - magic add uuid_mojo libuuid_ffi
     dir: examples/try-uuid-mojo
 
   examples:run:
-    aliases: ["exr"]
+    aliases: [ "exr" ]
     cmds:
       - magic run mojo src/main.mojo
     dir: examples/try-uuid-mojo
