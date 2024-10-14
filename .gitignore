@@ -42,4 +42,6 @@ tmp/
 !.env.local
 dylib/
 *.dylib
+*.so
+*.dll
 output/

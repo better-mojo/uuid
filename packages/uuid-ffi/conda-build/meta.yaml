@@ -6,13 +6,22 @@ package:
   # ref: https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#source-from-a-local-path
   #
 source:
-  path: ../../  # TODO X: 包含 cargo.toml 的路径!!!
+  path: ../  # TODO X: 包含 cargo.toml 的路径!!!
+
 
 build:
   script: build.sh     # 指定构建脚本
+
   #build:
   #  number: 0
 
+#build:
+#  number: 0
+#  script: cargo build --release --lib
+
+#
+# TODO X: 注意 format 工具,错误修改 {{ -> { {, 会导致编译报错!!!
+#
 requirements:
   build:
     - {{ compiler('rust') }}

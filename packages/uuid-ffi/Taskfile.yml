@@ -19,8 +19,9 @@ tasks:
   conda:build:
     aliases: [ "cb" ]
     cmds:
+      - mkdir -p output/
       #      - pixi run conda-build {{.CLI_ARGS}}
-      - pixi run conda-build recipes/conda-build/ --debug
+      - pixi run conda-build ./conda-build/ --output-folder output/  --debug
 
   pixi:build:
     aliases: [ "pb" ]
