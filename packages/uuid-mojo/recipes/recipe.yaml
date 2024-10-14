@@ -5,7 +5,7 @@ context:
 
 package:
     name: "uuid_mojo"
-    version: 0.1.1
+    version: 0.1.2
 
 source:
     - path: ../src/uuid_mojo/  # TODO X: FIX HERE
