@@ -16,22 +16,6 @@ tasks:
       - echo "pixi cli:"
       - pixi {{.CLI_ARGS}}
 
-  conda:init:
-    aliases: [ "ci" ]
-    cmds:
-      - pixi run conda config --add channels conda-forge
-      - pixi run conda config --add channels defaults
-      - pixi run conda config --show channels
-
-  conda:build:
-    aliases: [ "cb" ]
-    cmds:
-      - mkdir -p output/
-      #      - pixi run conda-build {{.CLI_ARGS}}
-      - |
-        pixi run conda-build ./conda-build/ \          
-          --output-folder output/   --debug # --config ./conda-build/conda_build_config.yaml \
-
   pixi:build:
     aliases: [ "pb" ]
     cmds:
@@ -58,11 +42,11 @@ tasks:
     cmds:
       - RUST_LOG=info cargo test --lib
 
-
   build:
     aliases: [ "b" ]
     cmds:
-      - rattler-build build --recipe recipes/recipe.yaml -c https://conda.modular.com/max -c conda-forge --skip-existing=all
+      - pixi run build
+#      - rattler-build build --recipe recipes/recipe.yaml -c https://conda.modular.com/max -c conda-forge --skip-existing=all
       - open output/
 
   #
@@ -83,20 +67,6 @@ tasks:
             {{.ITEM}}
       - open https://prefix.dev/channels/better-ffi
     dir: output/
-
-
-  publish:manual:
-    aliases: [ "pub:m", "up:m" ]
-    cmds:
-      - echo $PREFIX_DEV_API_KEY
-      - |
-        magic run rattler-build upload prefix -c "jojo" \
-          --api-key=$PREFIX_DEV_API_KEY \
-          output/osx-arm64/jojo-core-0.1.1-h60d57d3_0.conda
-      - open https://prefix.dev/channels/jojo
-    ignore_error: true
-
-
 
   release:
     aliases: [ "rel" ]
