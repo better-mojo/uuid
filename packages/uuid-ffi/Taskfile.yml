@@ -43,6 +43,12 @@ tasks:
       - pixi run build
       - open output/
 
+  clean:build:
+    aliases: ["cb"]
+    cmds:
+      - task: clean
+      - task: build
+
   release:
     aliases: [ "rel" ]
     cmds:

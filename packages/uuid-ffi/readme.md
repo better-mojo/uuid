@@ -1,9 +1,19 @@
 # uuid-ffi
 
-## Reference
+## Development
 
-- publish:
+### Install:
 
+```ruby
+pixi global install rattler-build 
+# magic global install rattler-build
+
+# or:
+task install
+
+```
+
+### Release:
 
 ```ruby
 
@@ -13,3 +23,7 @@ task publish
 
     
 ```
+
+## Reference
+
+- TODO

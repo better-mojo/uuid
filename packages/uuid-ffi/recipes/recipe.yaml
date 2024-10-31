@@ -13,7 +13,7 @@ package:
   version: ${{ version }}
 
 source:
-  - path: ../ffigen/    # TODO X: 包含 cargo.toml 的路径!!!
+  - path: ../core/    # TODO X: 包含 cargo.toml 的路径!!!
 
 #
 # build dir:
