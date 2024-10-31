@@ -26,4 +26,6 @@ task publish
 
 ## Reference
 
-- TODO
+- https://github.com/f0cii/diplomat
+- https://github.com/rust-diplomat/diplomat
+- https://rust-diplomat.github.io/book/

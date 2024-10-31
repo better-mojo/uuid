@@ -30,10 +30,11 @@ binding a `mojo` version of [rust uuid](https://github.com/uuid-rs/uuid).
 - https://prefix.dev/channels/better-ffi
 - https://prefix.dev/channels/better-mojo
 
-| Project                           | Package                 | Rank   | Description |
-|-----------------------------------|-------------------------|--------|-------------|
-| [uuid-ffi](./packages/uuid-ffi)   | [libuuid_ffi][uuid-ffi] | ⭐️⭐️⭐️ | uuid-rs ffi |
-| [uuid-mojo](./packages/uuid-mojo) | [uuid_mojo][uuid-mojo]  | ⭐️     | uuid-mojo   |
+| Project                             | Package                 | Rank   | Description                              |
+|-------------------------------------|-------------------------|--------|------------------------------------------|
+| ✅ [uuid-ffi](./packages/uuid-ffi)   | [libuuid_ffi][uuid-ffi] | ⭐️⭐️⭐️ | uuid-rs ffi                              |
+| ✅ [uuid-gen](./packages/uuid-gen)   | *                       | ⭐️     | generate `mojo abi` from `uuid-ffi-core` |
+| ✅ [uuid-mojo](./packages/uuid-mojo) | [uuid_mojo][uuid-mojo]  | ⭐️     | uuid-mojo package                        |
 
 ## Installation
 
@@ -81,13 +82,19 @@ fn main():
 
 ## Reference
 
-- https://crates.io/crates/uuid
-- https://github.com/uuid-rs/uuid
+### uuid-rs
+
+- ✅ https://crates.io/crates/uuid
+- ✅ https://github.com/uuid-rs/uuid
     - [examples](https://github.com/uuid-rs/uuid/tree/main/examples)
 
-> rust ffi, c str
+### Rust FFI
 
-- https://rustwiki.org/zh-CN/std/ffi/struct.CString.html#examples
+- ✅ https://github.com/f0cii/diplomat
+    - https://github.com/rust-diplomat/diplomat
+    - https://rust-diplomat.github.io/book/
+- ✅ https://github.com/mozilla/uniffi-rs
+- ✅ https://rustwiki.org/zh-CN/std/ffi/struct.CString.html#examples
 
 [language-shield]: https://img.shields.io/badge/Mojo%F0%9F%94%A5-24.5-orange
 
