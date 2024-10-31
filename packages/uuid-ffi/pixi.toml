@@ -9,7 +9,8 @@ version = "0.1.0"
 [tasks]
 release = "cargo build --release"
 build = { cmd = "rattler-build build --recipe recipes/ -c https://conda.modular.com/max -c conda-forge --skip-existing=all" }
-
+test = "RUST_LOG=info cargo test --lib"
+check = "RUSTFLAGS='-Z sanitizer=leak' cargo +nightly build"
 
 [dependencies]
 rust = ">=1.81.0,<2"

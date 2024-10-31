@@ -17,41 +17,36 @@ tasks:
 
   pkg:
     cmds:
-      - echo "pixi cli:"
       - pixi {{.CLI_ARGS}}
-
-  pixi:build:
-    aliases: [ "pb" ]
-    cmds:
-      - pixi run cargo build
 
   run:v4:
     aliases: [ "r4" ]
     cmds:
       - RUST_LOG=info cargo run --bin uuid_v4
-    dir: ffigen/
+    dir: core/
 
   run:v7:
     aliases: [ "r7" ]
     cmds:
       - RUST_LOG=info cargo run --bin uuid_v7
-    dir: ffigen/
-
-  check:
-    cmds:
-      - RUSTFLAGS="-Z sanitizer=leak" cargo +nightly build
+    dir: core/
 
   test:
     aliases: [ "t" ]
     cmds:
+      - pixi run test
       - RUST_LOG=info cargo test --lib
 
   build:
     aliases: [ "b" ]
     cmds:
       - pixi run build
-#      - rattler-build build --recipe recipes/recipe.yaml -c https://conda.modular.com/max -c conda-forge --skip-existing=all
       - open output/
+
+  release:
+    aliases: [ "rel" ]
+    cmds:
+      - pixi run release
 
   #
   # ref: https://taskfile.dev/usage/#looping-over-variables
@@ -71,12 +66,6 @@ tasks:
             {{.ITEM}}
       - open https://prefix.dev/channels/better-ffi
     dir: output/
-
-  release:
-    aliases: [ "rel" ]
-    cmds:
-      - RUST_BACKTRACE=full RUST_LOG=info cargo build --release # CARGO_PROFILE_RELEASE_BUILD_OVERRIDE_DEBUG=true
-    dir: ffigen/
 
   clean:
     aliases: [ "cl", 'del' ]

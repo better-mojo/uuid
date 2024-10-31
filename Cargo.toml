@@ -3,11 +3,12 @@ resolver = "2"
 
 # TODO X: rattler-build not support workspace
 members = [
+    "packages/uuid-gen"
 ]
 
 exclude = [
     "tmp", # 不需要 ** 子目录
-    "packages/uuid-ffi/ffigen",
+    "packages/uuid-ffi/core",
 ]
 
 

@@ -2,4 +2,14 @@
 
 ## Reference
 
-- 
+- publish:
+
+
+```ruby
+
+task build
+
+task publish  
+
+    
+```
