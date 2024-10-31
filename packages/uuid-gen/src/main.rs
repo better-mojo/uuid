@@ -4,7 +4,7 @@ use diplomat_tool::DocsUrlGenerator;
 
 pub fn main() {
     //
-    // real gen:
+    // temp gen: (for double check!)
     //
     diplomat_tool::gen(
         Path::new("../uuid-ffi/core/src/lib.rs"),
@@ -18,7 +18,7 @@ pub fn main() {
 
 
     //
-    // temp gen: (for double check!)
+    // real gen:
     //
     diplomat_tool::gen(
         Path::new("../uuid-ffi/core/src/lib.rs"),
