@@ -10,6 +10,12 @@ includes:
     dir: ./packages/uuid-ffi/
     optional: true
 
+  uuid-gen:
+    aliases: [ "ug" ]
+    taskfile: ./packages/uuid-gen/
+    dir: ./packages/uuid-gen/
+    optional: true
+
   uuid-mojo:
     aliases: [ "um", "mojo" ]
     taskfile: ./packages/uuid-mojo/

@@ -53,3 +53,4 @@ output/
 
 # mojo env
 .magic
+build/

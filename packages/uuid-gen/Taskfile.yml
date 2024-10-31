@@ -1,0 +1,16 @@
+version: "3"
+
+tasks:
+  pkg:
+    cmds:
+      - cargo {{.CLI_ARGS}}
+
+  run:
+    aliases: [ "gen", "g", "r" ]
+    cmds:
+      - RUST_LOG=info cargo run --bin gen
+
+  clean:
+    aliases: [ "cl", 'del' ]
+    cmds:
+      - cargo clean
