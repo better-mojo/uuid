@@ -1,6 +1,10 @@
 version: "3"
 
 tasks:
+  install:
+    cmds:
+      - pixi global install rattler-build # magic global install rattler-build
+
   init:pixi:
     cmds:
       - pixi init .

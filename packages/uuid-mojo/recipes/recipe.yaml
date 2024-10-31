@@ -1,19 +1,27 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
 
+
 context:
-    version: "13.4.2"
+    name: "uuid_mojo" # TODO X: lib name
+    version: "0.1.3"    # TODO X: lib version
 
 package:
-    name: "uuid_mojo"
-    version: 0.1.3
+    name: ${{ name|lower }}
+    version: ${{ version }}
 
 source:
     - path: ../src/uuid_mojo/  # TODO X: FIX HERE
 
 build:
     script:
-        - mkdir -p ${PREFIX}/lib/mojo
-        - magic run mojo package . -o ${PREFIX}/lib/mojo/uuid_mojo.mojopkg
+        - if: unix
+          then:
+              - mkdir -p ${PREFIX}/lib/mojo
+              - magic run mojo package . -o ${PREFIX}/lib/mojo/${{ name }}.mojopkg
+        - if: windows
+          then:
+              - echo 'not support yet!'
+
 
 requirements:
     run:

@@ -6,6 +6,10 @@ tasks:
     cmds:
       - magic {{.CLI_ARGS}}
 
+  install:
+    cmds:
+      - magic global install rattler-build
+
   init:
     cmds:
       - magic project channel add "conda-forge"
@@ -19,12 +23,6 @@ tasks:
     cmds:
       - magic add libuuid_ffi
 
-  add:dev:
-    aliases: [ "ad" ]
-    cmds:
-      - magic add rattler-build --feature dev
-      - pixi global install rattler-build
-
   run:
     aliases: [ "r" ]
     cmds:
@@ -36,7 +34,6 @@ tasks:
   build:
     aliases: [ "b" ]
     cmds:
-      - mkdir -p build/
       - magic run build
       - open output/
     ignore_error: true
