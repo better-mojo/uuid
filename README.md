@@ -1,3 +1,28 @@
+## 本项目已经归档, 已经迁移到: https://github.com/better-mojo/disc
+## 本项目已经归档, 已经迁移到: https://github.com/better-mojo/disc
+## 本项目已经归档, 已经迁移到: https://github.com/better-mojo/disc
+
+
+
+
+---
+
+#
+#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # uuid
 
 binding a `mojo` version of [rust uuid](https://github.com/uuid-rs/uuid).
@@ -36,32 +61,6 @@ binding a `mojo` version of [rust uuid](https://github.com/uuid-rs/uuid).
 | ✅ [uuid-gen](./packages/uuid-gen)   | *                       | ⭐️     | generate `mojo abi` from `uuid-ffi-core` |
 | ✅ [uuid-mojo](./packages/uuid-mojo) | [uuid_mojo][uuid-mojo]  | ⭐️     | uuid-mojo package                        |
 
-## Installation
-
-## Quick Start
-
-1. Add the `better-ffi, better-mojo` channel to your `mojoproject.toml`, e.g:
-   ```toml
-   [project]
-   channels = ["conda-forge", "https://conda.modular.com/max", "https://repo.prefix.dev/better-ffi",  "https://repo.prefix.dev/better-mojo", ]
-   ```
-
-or use [magic](https://docs.modular.com/magic/):
-
-```ruby
-magic project channel add "https://repo.prefix.dev/better-ffi" 
-magic project channel add "https://repo.prefix.dev/better-mojo" 
-```
-
-- add `uuid` to your `dependencies`
-
-```ruby
-magic add uuid_mojo
-magic add libuuid_ffi
- 
- 
-# pixi add libuuid_ffi
-```
 
 ## Usage
 
