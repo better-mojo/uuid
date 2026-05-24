@@ -1,0 +1,65 @@
+[workspace]
+authors = ["hhglory <hhglory@outlook.com>"]
+channels = [
+    "https://conda.modular.com/max-nightly",
+    "conda-forge",
+    "https://repo.prefix.dev/better-ffi",
+]
+name = "uuid"
+# platforms = ["linux-64", "osx-arm64"] # TODO X: need to build for linux-64
+platforms = ["osx-arm64"]
+version = "0.2.4"
+preview = ["pixi-build"]
+
+
+[package]
+name = "uuid"
+version = "0.2.5"
+
+
+[package.build]
+backend = { name = "pixi-build-rattler-build", version = "*" }
+
+
+[dependencies]
+# mojo = "==1.0.0b1"
+mojo = ">=1.0.0b2.dev2026052215,<2"
+libuuid_ffi = ">=0.2.4,<0.3"
+
+
+[feature.dev.dependencies]
+pre-commit = ">=4.2.0,<5"
+
+
+[activation]
+env = { MOJO_FLAGS = "-I . -I src" }
+
+
+[environments]
+default = { features = ["dev"], solve-group = "default" }
+dev = { features = ["dev"], solve-group = "default" }
+
+
+[tasks]
+# Build
+build = "mojo build"
+
+# Packaging
+build-mojo = { cmd = "pixi run -e=dev rattler-build build --recipe recipes/mojo-recipe.yaml -c https://conda.modular.com/max -c conda-forge --skip-existing=all" }
+build-rs = { cmd = "pixi run -e=dev rattler-build build --recipe recipes/rs-recipe.yaml -c https://conda.modular.com/max -c conda-forge --skip-existing=all" }
+
+
+# Format
+install-pre-commit = "pre-commit install"
+format = { cmd = "mojo format src tests examples", depends-on = [
+    "install-pre-commit",
+] }
+format-check = "mojo format --check src tests examples"
+
+
+# Test
+test = "mojo -I . -I src/ tests/test_uuid.mojo"
+test2 = "mojo -I . -I src/ tests/test_debug.mojo"
+
+# Example
+ex1 = "mojo -I . -I src/ examples/main.mojo"

@@ -1,31 +1,19 @@
 version: "3"
 
-#
-# sub namespace: https://taskfile.dev/#/usage?id=including-other-taskfiles
-#
 includes:
   uuid-ffi:
-    aliases: [ "uf" ]
-    taskfile: ./packages/uuid-ffi/
-    dir: ./packages/uuid-ffi/
+    aliases: ["ffi", "uf"]
+    taskfile: ./uuid-ffi/
+    dir: ./uuid-ffi/
     optional: true
 
-  uuid-mojo:
-    aliases: [ "um", "mojo" ]
-    taskfile: ./packages/uuid-mojo/
-    dir: ./packages/uuid-mojo/
-    optional: true
-
-#
-# global vars: https://taskfile.dev/#/usage?id=variables
-#
 vars:
   VAR1: "some-var"
 
 # global env:
 env:
   ENV1: testing
-  WORKSPACE: "crates/"
+  WORKSPACE: "packages/"
 
 # env file:
 dotenv:
@@ -34,45 +22,164 @@ dotenv:
 ################################################################################################
 
 tasks:
-  rel:
+  pixi:
     cmds:
-      - task: uf:del
-      - task: uf:rel
-      - cp -r target/release/libuuid_ffi.dylib packages/uuid-mojo/dylib/
-      - task: um:run
+      - pixi {{.CLI_ARGS}}
+
+  version:
+    cmds:
+      - pixi run mojo --version
+
+  setup:
+    cmds:
+      - npx skills add modular/skills
+
+  install:
+    aliases: ["i"]
+    cmds:
+      - pixi install # 安装 pixi 依赖包
+
+  release:
+    aliases: ["rel"]
+    cmds:
+      - task: release:rs
+      - task: release:mojo
+
+  release:rs:
+    aliases: ["rel:rs"]
+    cmds:
+      - pixi run build-rs
+
+  release:mojo:
+    aliases: ["rel:mojo"]
+    cmds:
+      - pixi run build-mojo
+
+  #
+  # ref: https://taskfile.dev/usage/#looping-over-variables
+  #
+  publish:ffi:
+    aliases: ["upf", "up:ffi", "pub", "pub:auto"]
+    vars:
+      UP_PKGS:
+        sh: find . -name "libuuid_ffi-*.conda" -type f
+    cmds:
+      - echo $PREFIX_DEV_API_KEY
+      - echo {{ .UP_PKGS }}
+      - for: { var: UP_PKGS }
+        cmd: |
+          pixi run -e=dev rattler-build upload prefix -c "better-ffi" \
+            --api-key=$PREFIX_DEV_API_KEY \
+            {{.ITEM}}
+      - open https://prefix.dev/channels/better-ffi
+    dir: output/
+
+  publish:mojo:
+    aliases: ["up", "up:mojo", "pub", "pub:auto"]
+    vars:
+      UP_PKGS:
+        sh: find . -name "uuid-*.conda" -type f
+    cmds:
+      - echo {{ .UP_PKGS }}
+      - for: { var: UP_PKGS }
+        cmd: |
+          pixi run -e=dev rattler-build upload prefix -c "better-mojo" \
+            --api-key=$PREFIX_DEV_API_KEY \
+            {{.ITEM}}
+      - open https://prefix.dev/channels/better-mojo
+    dir: output/
+
+  clean:
+    aliases: ["del"]
+    cmds:
+      - rm -rf output/
+
+  docs:
+    cmds:
+      - pixi i -e=dev
+      - pixi run -e=dev mkdocs serve --open --watch=docs --watch=mkdocs.yml --dev-addr=localhost:5005
+
+  docs:deploy:
+    aliases: ["docs:d"]
+    cmds:
+      - pixi i -e=dev
+      - pixi run -e=dev mkdocs gh-deploy # build and create gh-pages branch
+      - git push origin gh-pages:gh-pages --force # push to public repo
 
   dev:
     cmds:
       - rustup toolchain install nightly
       - rustup toolchain list
 
+  rsync:
+    aliases: ["rs"]
+    cmds: # 忽略目录 = [.git/, .github/, ], 改写成 for 循环
+      - |
+        for repo in {{.REPOS}}; do
+          rsync -avzdelete-after --exclude=".git/" --exclude=".github/" ./tmp/$repo/ ./packages/$repo/
+        done
+    vars:
+      REPOS: "flare sqlite morph json envo mobin"
 
-  ###########################################################################
+  clone:
+    aliases: ["cl"]
+    cmds:
+      - git clone git@github.com:better-mojo/sqlite.git
+      - git clone git@github.com:better-mojo/morph.git
+      - git clone git@github.com:ehsanmok/json.git
+      - git clone git@github.com:ehsanmok/envo.git
+    dir: ./tmp/
+    ignore_error: true
+
+  ################################################################################
+
+  count:
+    cmds:
+      - tokei # 代码统计: https://github.com/XAMPPRocky/tokei
 
   quick:
-    aliases: [ "q" ]
+    aliases: ["q"]
+    cmds:
+      - task: cc
+      - task: push
+
+  # usage: task rc -- 2
+  rc:
+    aliases: ["reset:commit"]
+    cmds:
+      - git reset --soft HEAD~{{.CLI_ARGS}}
+      - task: c
+
+  cc:
     cmds:
       - task: commit
       - task: commit
-      - git status
-      - task: push
-    ignore_error: true
 
   commit:
-    aliases: [ "c" ]
+    aliases: ["c"]
     cmds:
       - git add .
-      - git commit -m "update" --no-verify
+      - git status
+      - |
+        git commit -m 'chore: 💪 update' --no-verify
     ignore_error: true
 
+  commit:ai:
+    aliases: ["c:ai"]
+    cmds:
+      - git add .
+      - git status
+      - |
+        git commit -m 'chore: 🤖 update' --no-verify
+    ignore_error: true
 
   pull:
-    aliases: [ "pl" ]
     cmds:
-      - git pull
+      - git config pull.rebase false
+      - git pull origin main
 
   push:
-    aliases: [ "p" ]
     cmds:
       - git push origin main --tags
-      - repo_url=`git remote -v | grep push | awk -F ":" '{print $2}' | awk -F ".git" '{print "https://github.com/"$1}'`; open $repo_url
+      - repo_url=`git remote -v | grep push | awk -F ":" '{print $2}' | awk -F
+        ".git" '{print "https://github.com/"$1}'`; open $repo_url

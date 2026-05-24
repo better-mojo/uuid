@@ -42,3 +42,18 @@ tmp/
 !.env.local
 dylib/
 *.dylib
+*.so
+*.dll
+output/
+
+
+# pixi environments
+.pixi
+*.egg-info
+
+# mojo env
+.magic
+build/
+# pixi environments
+.pixi/*
+!.pixi/config.toml

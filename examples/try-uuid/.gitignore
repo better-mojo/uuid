@@ -1,0 +1,9 @@
+
+# pixi environments
+.pixi
+*.egg-info
+# magic environments
+.magic
+# pixi environments
+.pixi/*
+!.pixi/config.toml

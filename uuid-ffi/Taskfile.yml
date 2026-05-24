@@ -1,0 +1,64 @@
+version: "3"
+
+tasks:
+  pixi:
+    cmds:
+      - pixi {{.CLI_ARGS}}
+
+  cargo:
+    cmds:
+      - cargo {{.CLI_ARGS}}
+
+  gen:
+    cmds:
+      - cargo clean
+      - cargo run --bin generate-headers
+
+  build:
+    aliases: ["b"]
+    cmds:
+      - cargo test --features c-headers -- generate_headers
+      - cargo build
+      - open target/debug
+    ignore_error: true
+
+  release:
+    aliases: ["rel"]
+    cmds:
+      - cargo test --features c-headers -- generate_headers
+      - cargo build --release
+      - open target/release
+    ignore_error: true
+
+  run:c:
+    aliases: ["r"]
+    cmds:
+      - task: b
+      # - gcc -L ../../target/debug -l uuid_ffi  -o main  main.c  -include stdio.h # libuuid_ffi， 对应 uuid_ffi, 无需 Lib 前缀
+      - gcc -L ./target/debug -l uuid_ffi  -o main  main.c  -include stdio.h # libuuid_ffi， 对应 uuid_ffi, 无需 Lib 前缀
+      - ./main
+      - rm -rf main
+    ignore_error: true
+
+  #
+  publish:ffi:
+    aliases: ["upf", "up:ffi", "pub", "pub:auto"]
+    vars:
+      UP_PKGS:
+        sh: find . -name "*.conda" -type f
+    cmds:
+      - echo $PREFIX_DEV_API_KEY
+      - echo {{ .UP_PKGS }}
+      - for: { var: UP_PKGS }
+        cmd: |
+          pixi run -e=dev rattler-build upload prefix -c "better-ffi" \
+            --api-key=$PREFIX_DEV_API_KEY \
+            {{.ITEM}}
+      - open https://prefix.dev/channels/better-ffi
+    dir: output/
+
+  clean:
+    aliases: ["c"]
+    cmds:
+      - cargo clean
+      - rm -rf target/

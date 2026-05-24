@@ -1,0 +1,19 @@
+[workspace]
+authors = ["hhglory <hhglory@outlook.com>"]
+channels = [
+    "https://conda.modular.com/max-nightly",
+    "https://repo.prefix.dev/better-ffi",
+    "https://repo.prefix.dev/better-mojo",
+    "conda-forge",
+]
+name = "try-uuid"
+platforms = ["osx-arm64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+mojo = ">=1.0.0b2.dev2026052215,<2"
+
+libuuid_ffi = ">=0.2.4,<0.3"
+uuid = ">=0.2.5,<0.3"

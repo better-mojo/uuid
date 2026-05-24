@@ -1,79 +1,79 @@
 # uuid
 
-Binding a `mojo` version of [rust uuid](https://github.com/uuid-rs/uuid).
+为 [rust uuid](https://github.com/uuid-rs/uuid) 绑定 Mojo 版本。
 
 <a name="readme-top"></a>
 
-<!-- PROJECT LOGO -->
+<!-- 项目 LOGO -->
 <br />
 <div align="center">
 
 <h3 align="center">UUID Mojo</h3>
 
   <p align="center">
-    🐝 binding uuid-rs for mojo 🔥
+    🐝 为 mojo 绑定 uuid-rs 🔥
     <br/>
 
-![Mojo Version][language-shield]
-[![MIT License][license-shield]][license-url]
-[![Pixi Badge](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/prefix-dev/pixi/main/assets/badge/v0.json)](https://pixi.sh)
+![Mojo 版本][language-shield]
+[![MIT 许可证][license-shield]][license-url]
+[![Pixi 徽章](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/prefix-dev/pixi/main/assets/badge/v0.json)](https://pixi.sh)
 <br/>
-[![Contributors Welcome][contributors-shield]][contributors-url]
+[![欢迎贡献者][contributors-shield]][contributors-url]
 
-[简体中文](README_CN.md) | English
+简体中文 | [English](README.md)
 
   </p>
 </div>
 
-## Includes
+## 包内容
 
 - <https://prefix.dev/channels/better-ffi>
 - <https://prefix.dev/channels/better-mojo>
 
-| Project                             | Package                 | Rank   | Description                              |
+| 项目                             | 包                 | 等级   | 描述                              |
 |-------------------------------------|-------------------------|--------|------------------------------------------|
 | ✅ [uuid-ffi](./uuid-ffi)   | [libuuid_ffi](https://prefix.dev/channels/better-ffi/packages/libuuid_ffi) | ⭐️⭐️⭐️ | uuid-rs ffi                              |
-| ✅ [uuid](./uuid) | [uuid](https://prefix.dev/channels/better-mojo/packages/uuid)  | ⭐️     | uuid-mojo package                        |
+| ✅ [uuid](./uuid) | [uuid](https://prefix.dev/channels/better-mojo/packages/uuid)  | ⭐️     | uuid-mojo 包                        |
 
-## Usage
+## 使用方法
 
-- Import dependencies:
+- 导入依赖：
 
 ```toml
 
-# First add 2 channel sources, including uuid-ffi package and uuid package
+# 先添加 2 个源地址，包含 uuid-ffi 包和 uuid 包
 channels = [
     "https://conda.modular.com/max-nightly",
-    "https://repo.prefix.dev/better-ffi", # contains uuid-ffi package
-    "https://repo.prefix.dev/better-mojo", # contains uuid package
+    "https://repo.prefix.dev/better-ffi", # 包含 uuid-ffi 包
+    "https://repo.prefix.dev/better-mojo", # 包含 uuid 包
     "conda-forge",
 ]
 
-# Add 2 dependency packages, including uuid-ffi package and uuid package
+# 添加 2 个依赖包，包含 uuid-ffi 包和 uuid 包
 [dependencies]
 mojo = ">=1.0.0b2.dev2026052215,<2"
 
-# FFI dependency
+# FFI 依赖
 libuuid_ffi = ">=0.2.4,<0.3"
-# Mojo package dependency
+# Mojo 包依赖
 uuid = ">=0.2.5,<0.3"
 
 ```
 
-- ✅ Simple example:
+- ✅ 简单示例:
 
 ```mojo
 import uuid
 
 
 def test_uuid() raises:
-    # implement style 1:
-    var id = uuid.uuid_v4()  # auto free memory
-    var id2 = uuid.uuid_v7()  # auto free memory
+    # 实现方式 1:
+    var id = uuid.uuid_v4()  # 自动释放内存
+    var id2 = uuid.uuid_v7()  # 自动释放内存
 
-    # implement style 2:
+    # 实现方式 2:
     var id3 = uuid.gen_uuid_v4()
-    var id4 = uuid.gen_uuid_v7()  # auto free memory
+    var id4 = uuid.gen_uuid_v7()  # 自动释放内存
 
     print(id)
     print(id2)
@@ -87,35 +87,35 @@ def main() raises:
 
 ```
 
-- ✅ Complete example [examples/try-uuid](examples/try-uuid)
-  - Includes complete package dependency import methods
+- ✅  完整示例 [examples/try-uuid](examples/try-uuid)
+  - 包含完整的包依赖导入方法
 
 ```bash
-# install dependencies
+# 安装依赖
 pixi install
 
-# run
+# 运行
 pixi run mojo src/main.mojo
 
 ```
 
-## Release and Publish to Prefix.dev
+## 发布到 Prefix.dev
 
 - ✅ [Taskfile](./Taskfile.yml)
 
 ```bash
 
-# release
+# 发布
 task release:rs
 task release:mojo
 
-# publish to prefix.dev
+# 发布到 prefix.dev
 task publish:ffi
 task publish:mojo
 
 ```
 
-## Reference
+## 参考
 
 ### Mojo + SQLite
 
@@ -125,7 +125,7 @@ task publish:mojo
 
 - ✅ <https://crates.io/crates/uuid>
 - ✅ <https://github.com/uuid-rs/uuid>
-  - [examples](https://github.com/uuid-rs/uuid/tree/main/examples)
+  - [示例](https://github.com/uuid-rs/uuid/tree/main/examples)
 
 ### Rust FFI
 

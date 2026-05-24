@@ -1,14 +1,12 @@
 [workspace]
 resolver = "2"
 
-members = [
-    "packages/uuid-ffi",
-]
+# TODO X: rattler-build not support workspace
+members = ["uuid-ffi"]
 
 exclude = [
     "tmp", # 不需要 ** 子目录
 ]
-
 
 
 ################################################################################
@@ -25,8 +23,8 @@ exclude = [
 panic = "abort"
 
 [profile.release]
-opt-level = "z"     # Optimize for size.
-lto = true          # Enable Link Time Optimization
-codegen-units = 1   # Reduce number of codegen units to increase optimizations.
-panic = "abort"     # Abort on panic
-strip = true        # Automatically strip symbols from the binary.
+opt-level = "z"   # Optimize for size.
+lto = true        # Enable Link Time Optimization
+codegen-units = 1 # Reduce number of codegen units to increase optimizations.
+panic = "abort"   # Abort on panic
+strip = true      # Automatically strip symbols from the binary.

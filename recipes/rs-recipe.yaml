@@ -1,0 +1,62 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+#
+# ref:
+#   - https://prefix-dev.github.io/rattler-build/latest/tutorials/rust/
+#   - https://github.com/conda-forge/fcp-rust-feedstock/blob/main/recipe/meta.yaml#L17
+
+context:
+  version: "0.2.4" # package version
+  package_name: "libuuid_ffi" # package name
+  package_path: "../uuid-ffi/" # package path, 相对于 recipes/rs-recipe.yaml 的路径
+
+package:
+  name: ${{ package_name }}
+  version: ${{ version }}
+
+source:
+  - path: ${{ package_path }} # TODO X: 包含 cargo.toml 的路径!!!
+
+#
+# build dir:
+#   - macos: packages/uuid-ffi/output/osx-arm64/uuid_ffi-0.1.1-h60d57d3_0/lib/aarch64-apple-darwin/release/libuuid_ffi.dylib
+#
+build:
+  script:
+    - if: osx # m1 mac
+      then:
+        - echo "${PREFIX}"
+        - mkdir -p ${PREFIX}/lib/tmp/
+        - $BUILD_PREFIX/bin/cargo build --release --lib --target-dir ${PREFIX}/lib/tmp
+        - cp ${PREFIX}/lib/tmp/aarch64-apple-darwin/release/${{ package_name }}.dylib ${PREFIX}/lib/
+        - rm -rf ${PREFIX}/lib/tmp/
+
+    #
+    # https://rattler.build/latest/selectors/#available-variables
+    #
+    - if: linux and x86_64 # amd64
+      then:
+        - mkdir -p ${PREFIX}/lib/tmp/
+        - $BUILD_PREFIX/bin/cargo build --release --lib --target-dir ${PREFIX}/lib/tmp
+        - cp ${PREFIX}/lib/tmp/x86_64-unknown-linux-gnu/release/${{ package_name }}.so ${PREFIX}/lib/
+        - rm -rf ${PREFIX}/lib/tmp/
+
+    - if: linux and aarch64 # arm64
+      then:
+        - mkdir -p ${PREFIX}/lib/tmp/
+        - $BUILD_PREFIX/bin/cargo fix --edition 2024
+        - $BUILD_PREFIX/bin/cargo build --release --lib --target-dir ${PREFIX}/lib/tmp
+        - cp ${PREFIX}/lib/tmp/aarch64-unknown-linux-gnu/release/${{ package_name }}.so ${PREFIX}/lib/
+        - rm -rf ${PREFIX}/lib/tmp/
+
+requirements:
+  build:
+    - ${{ compiler('rust') }} # TODO X: rust toolchain
+    - ${{ compiler('c') }}
+    #    - ${{ stdlib('c') }}
+#    - cargo-bundle-licenses
+
+about:
+  homepage: https://github.com/better-mojo/disc
+  license: MIT
+  summary: "uuid-rs binding for mojo"
+  repository: https://github.com/better-mojo/disc

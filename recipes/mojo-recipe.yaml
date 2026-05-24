@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+
+context:
+  version: "0.2.5" # package version
+  package_name: "uuid" # package name
+  package_path: "../uuid/" # package path, 相对于 recipes/mojo-recipe.yaml 的路径
+
+package:
+  name: ${{ package_name }}
+  version: ${{ version }}
+
+source:
+  - path: ${{ package_path }} # TODO X: 包含 cargo.toml 的路径!!!
+
+build:
+  script:
+    - mkdir -p ${PREFIX}/lib/mojo
+    - pixi run mojo package . -o ${PREFIX}/lib/mojo/${{ package_name }}.mojopkg
+
+requirements:
+  run:
+    - mojo >=1.0.0b2.dev2026052215,<2
+
+about:
+  homepage: https://github.com/better-mojo/uuid
+  license: MIT
+  summary: "uuid-rs binding for mojo"
+  repository: https://github.com/better-mojo/uuid
