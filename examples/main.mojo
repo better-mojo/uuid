@@ -10,11 +10,13 @@ def test_uuid() raises:
     var id3 = uuid.gen_uuid_v4()
     var id4 = uuid.gen_uuid_v7()  # auto free memory
 
-    print(id)
-    print(id2)
+    print("=== UUID Group1 ===\n")
+    print("uuid_v4:", id)
+    print("uuid_v7:", id2)
 
-    print(id3)
-    print(id4)
+    print("\n=== UUID Group2 ===\n")
+    print("gen_uuid_v4:", id3)
+    print("gen_uuid_v7:", id4)
 
 
 def main() raises:

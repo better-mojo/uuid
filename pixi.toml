@@ -6,9 +6,9 @@ channels = [
     "https://repo.prefix.dev/better-ffi",
 ]
 name = "uuid"
-# platforms = ["linux-64", "osx-arm64"] # TODO X: need to build for linux-64
-platforms = ["osx-arm64"]
-version = "0.2.4"
+platforms = ["linux-64", "linux-aarch64", "osx-arm64"]
+# platforms = ["osx-arm64"]
+version = "0.2.5"
 preview = ["pixi-build"]
 
 

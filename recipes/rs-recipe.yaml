@@ -5,7 +5,7 @@
 #   - https://github.com/conda-forge/fcp-rust-feedstock/blob/main/recipe/meta.yaml#L17
 
 context:
-  version: "0.2.4" # package version
+  version: "0.2.5" # package version
   package_name: "libuuid_ffi" # package name
   package_path: "../uuid-ffi/" # package path, 相对于 recipes/rs-recipe.yaml 的路径
 
@@ -43,7 +43,6 @@ build:
     - if: linux and aarch64 # arm64
       then:
         - mkdir -p ${PREFIX}/lib/tmp/
-        - $BUILD_PREFIX/bin/cargo fix --edition 2024
         - $BUILD_PREFIX/bin/cargo build --release --lib --target-dir ${PREFIX}/lib/tmp
         - cp ${PREFIX}/lib/tmp/aarch64-unknown-linux-gnu/release/${{ package_name }}.so ${PREFIX}/lib/
         - rm -rf ${PREFIX}/lib/tmp/

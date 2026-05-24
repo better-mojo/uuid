@@ -22,22 +22,84 @@ dotenv:
 ################################################################################################
 
 tasks:
-  pixi:
+  doctor:
+    aliases: ["check"]
     cmds:
-      - pixi {{.CLI_ARGS}}
-
-  version:
-    cmds:
+      - task --version
+      - cargo -V
+      - pixi -V
+      - rattler-build -V
       - pixi run mojo --version
 
   setup:
+    aliases: ["s"]
+    cmds:
+      - task: install:pixi
+      - task: install:rattler-build
+
+  # https://taskfile.dev/docs/installation
+  install:taskfile:ubuntu:
+    aliases: ["i:task:ubuntu"]
+    cmds:
+      - curl -1sLf 'https://dl.cloudsmith.io/public/task/task/setup.deb.sh' | sudo -E bash
+      - apt install -y task # ubuntu/debian
+
+  install:taskfile:macos:
+    aliases: ["i:task:macos"]
+    cmds:
+      - brew install go-task # macos
+
+  # https://rust-lang.org/tools/install/
+  install:rust:
+    aliases: ["i:rust", "i:rs"]
+    cmds:
+      - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+      - cargo -V
+
+  install:pixi:
+    aliases: ["i:pixi"]
+    cmds:
+      - curl -fsSL https://pixi.sh/install.sh | sh
+      - pixi global install rattler-build
+
+  # https://rattler-build.prefix.dev/latest/#installation
+  install:rattler-build:
+    aliases: ["i:rb"]
+    cmds:
+      - pixi global install rattler-build
+
+  install:skills:
+    aliases: ["i:skills"]
     cmds:
       - npx skills add modular/skills
+
+  pixi:
+    cmds:
+      - pixi {{.CLI_ARGS}}
 
   install:
     aliases: ["i"]
     cmds:
       - pixi install # 安装 pixi 依赖包
+
+  run:mojo:
+    aliases: ["r:mojo", "run", "r"]
+    cmds:
+      - pixi run mojo -I . examples/main.mojo
+
+  ##########################################################################
+
+  # 编译发布 Linux-64 版本， 基于 orbstack 虚拟机
+  shell:linux-64:
+    aliases: ["sh:linux-64", "sh:linux"]
+    cmds:
+      - orbctl run -m u22build
+
+  # 编译发布 Linux-aarch64 版本， 基于 orbstack 虚拟机
+  shell:linux-aarch64:
+    aliases: ["sh:linux-aarch64"]
+    cmds:
+      - orbctl run -m u22dev
 
   release:
     aliases: ["rel"]
@@ -45,15 +107,21 @@ tasks:
       - task: release:rs
       - task: release:mojo
 
+  # release + publish ffi package
   release:rs:
     aliases: ["rel:rs"]
     cmds:
+      - task: del
       - pixi run build-rs
+      - task: publish:ffi
 
+  # release + publish mojo package
   release:mojo:
     aliases: ["rel:mojo"]
     cmds:
+      - task: del
       - pixi run build-mojo
+      - task: publish:mojo
 
   #
   # ref: https://taskfile.dev/usage/#looping-over-variables
@@ -71,7 +139,7 @@ tasks:
           pixi run -e=dev rattler-build upload prefix -c "better-ffi" \
             --api-key=$PREFIX_DEV_API_KEY \
             {{.ITEM}}
-      - open https://prefix.dev/channels/better-ffi
+      - open https://prefix.dev/channels/better-ffi/packages/libuuid_ffi
     dir: output/
 
   publish:mojo:
@@ -87,6 +155,7 @@ tasks:
             --api-key=$PREFIX_DEV_API_KEY \
             {{.ITEM}}
       - open https://prefix.dev/channels/better-mojo
+      - open https://prefix.dev/channels/better-mojo/packages/uuid
     dir: output/
 
   clean:
