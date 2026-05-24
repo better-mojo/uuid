@@ -11,6 +11,10 @@ void
 free_rs_string (
     char * string);
 
+
+#include <stddef.h>
+#include <stdint.h>
+
 size_t
 rs_gen_uuid_v4 (
     uint8_t * result,

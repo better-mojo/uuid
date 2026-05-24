@@ -27,13 +27,10 @@ Binding a `mojo` version of [rust uuid](https://github.com/uuid-rs/uuid).
 
 ## Includes
 
-- <https://prefix.dev/channels/better-ffi>
-- <https://prefix.dev/channels/better-mojo>
-
-| Project                             | Package                 | Rank   | Description                              |
-|-------------------------------------|-------------------------|--------|------------------------------------------|
-| ✅ [uuid-ffi](./uuid-ffi)   | [libuuid_ffi](https://prefix.dev/channels/better-ffi/packages/libuuid_ffi) | ⭐️⭐️⭐️ | uuid-rs ffi                              |
-| ✅ [uuid](./uuid) | [uuid](https://prefix.dev/channels/better-mojo/packages/uuid)  | ⭐️     | uuid-mojo package                        |
+| Project                             | Package                 | Host | Rank   | Description                              |
+|-------------------------------------|-------------------------|------|--------|------------------------------------------|
+| ✅ [uuid-ffi](./uuid-ffi)   | [libuuid_ffi](https://prefix.dev/channels/better-ffi/packages/libuuid_ffi) | [prefix.dev](https://prefix.dev/channels/better-ffi) | ⭐️⭐️⭐️ | uuid-rs ffi package                      |
+| ✅ [uuid](./uuid) | [uuid](https://prefix.dev/channels/better-mojo/packages/uuid)  | [prefix.dev](https://prefix.dev/channels/better-mojo) | ⭐️⭐️⭐️⭐️   | uuid-mojo package                        |
 
 ## Usage
 
@@ -45,7 +42,7 @@ Binding a `mojo` version of [rust uuid](https://github.com/uuid-rs/uuid).
 channels = [
     "https://conda.modular.com/max-nightly",
     "https://repo.prefix.dev/better-ffi", # contains uuid-ffi package
-    "https://repo.prefix.dev/better-mojo", # contains uuid package
+    "https://repo.prefix.dev/better-mojo", # contains uuid mojo package
     "conda-forge",
 ]
 
@@ -99,8 +96,49 @@ pixi run mojo src/main.mojo
 
 ```
 
+## Development Environment
+
+### Install Dependencies
+
+- Install [Taskfile](https://github.com/go-task/go-task): build tool
+- Install [Rust](https://www.rust-lang.org/tools/install)
+- Install [pixi](https://pixi.sh/)
+- Install [rattler-build](https://rattler-build.prefix.dev/latest/#installation): package management tool, compile + publish rust binary packages
+- Install [mojo](https://mojolang.org/install/)
+
+```bash
+task setup
+```
+
+### Build and Debug
+
+- ✅ Build and debug uuid-ffi package
+
+```bash
+
+# run examples
+task ffi:r
+
+# build uuid-ffi package
+task ffi:b
+
+# release uuid-ffi package
+task ffi:rel
+
+```
+
+- ✅ Build and debug uuid [examples](./examples)
+
+```bash
+# run examples
+task uuid:r
+
+```
+
 ## Release and Publish to Prefix.dev
 
+- ✅ <https://prefix.dev/channels/better-ffi>
+- ✅ <https://prefix.dev/channels/better-mojo>
 - ✅ [Taskfile](./Taskfile.yml)
 
 ```bash
@@ -112,6 +150,21 @@ task release:mojo
 # publish to prefix.dev
 task publish:ffi
 task publish:mojo
+
+```
+
+- ✅ Compile and release Linux version, based on `orbstack` virtual machine
+  - Note: each time you need to publish the ffi library for `3 OS versions` to prefix.dev first, then publish the uuid package. (dependency order)
+
+```bash
+# list available virtual machines
+orbctl list 
+
+# connect to linux-aarch64 architecture virtual machine, execute compile + publish
+orbctl run -m u22dev
+
+# connect to linux-64 architecture virtual machine, execute compile + publish
+orbctl run -m u22build
 
 ```
 

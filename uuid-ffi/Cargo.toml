@@ -1,6 +1,6 @@
 [package]
 name = "uuid-ffi"
-version = "0.2.4"
+version = "0.2.5"
 edition = "2021"  # fix for pixi
 
 # fix for pixi + rattler-build
@@ -36,9 +36,10 @@ path = "examples/v7.rs"
 
 
 [dependencies]
-safer-ffi = { git = "https://github.com/getditto/safer_ffi.git", features = [
-    "python-headers",
-] }
+safer-ffi = { version = "0.1.*", features = ["python-headers"] }
+# safer-ffi = { git = "https://github.com/getditto/safer_ffi.git", features = [
+#     "python-headers",
+# ] }
 
 uuid = { version = "1.*", features = ["v4", "v7"] }
 

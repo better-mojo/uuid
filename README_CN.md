@@ -27,13 +27,10 @@
 
 ## 包内容
 
-- <https://prefix.dev/channels/better-ffi>
-- <https://prefix.dev/channels/better-mojo>
-
-| 项目                             | 包                 | 等级   | 描述                              |
-|-------------------------------------|-------------------------|--------|------------------------------------------|
-| ✅ [uuid-ffi](./uuid-ffi)   | [libuuid_ffi](https://prefix.dev/channels/better-ffi/packages/libuuid_ffi) | ⭐️⭐️⭐️ | uuid-rs ffi                              |
-| ✅ [uuid](./uuid) | [uuid](https://prefix.dev/channels/better-mojo/packages/uuid)  | ⭐️     | uuid-mojo 包                        |
+| 项目                             | 包地址                 | 包托管平台     | 等级   | 描述                              |
+|-------------------------------------|-------------------------|-----------| -------|------------------------------------------|
+| ✅ [uuid-ffi](./uuid-ffi)   | [libuuid_ffi](https://prefix.dev/channels/better-ffi/packages/libuuid_ffi) | [prefix.dev](https://prefix.dev/channels/better-ffi) | ⭐️⭐️⭐️ | uuid-rs ffi 包                              |
+| ✅ [uuid](./uuid) | [uuid](https://prefix.dev/channels/better-mojo/packages/uuid)  | [prefix.dev](https://prefix.dev/channels/better-mojo) | ⭐️⭐️⭐️⭐️   | uuid-mojo 包                        |
 
 ## 使用方法
 
@@ -45,7 +42,7 @@
 channels = [
     "https://conda.modular.com/max-nightly",
     "https://repo.prefix.dev/better-ffi", # 包含 uuid-ffi 包
-    "https://repo.prefix.dev/better-mojo", # 包含 uuid 包
+    "https://repo.prefix.dev/better-mojo", # 包含 uuid mojo 包
     "conda-forge",
 ]
 
@@ -99,8 +96,49 @@ pixi run mojo src/main.mojo
 
 ```
 
+## 开发环境
+
+### 安装依赖
+
+- 安装 [Taskfile](https://github.com/go-task/go-task) ： 编译构建工具
+- 安装 [Rust](https://www.rust-lang.org/tools/install)
+- 安装 [pixi](https://pixi.sh/)
+- 安装 [rattler-build](https://rattler-build.prefix.dev/latest/#installation) ： 包管理工具，编译+发布 rust 二进制包
+- 安装 [mojo](https://mojolang.org/install/)
+
+```ruby
+task setup
+```
+
+### 编译调试
+
+- ✅ 编译调试 uuid-ffi 包
+
+```ruby
+
+# 运行示例
+task ffi:r
+
+# 编译 uuid-ffi 包
+task ffi:b
+
+# release uuid-ffi 包
+task ffi:rel
+
+```
+
+- ✅ 编译调试 uuid [examples](./examples) 示例
+
+```ruby
+# 运行 examples 示例
+task uuid:r
+
+```
+
 ## 发布到 Prefix.dev
 
+- ✅ <https://prefix.dev/channels/better-ffi>
+- ✅ <https://prefix.dev/channels/better-mojo>
 - ✅ [Taskfile](./Taskfile.yml)
 
 ```bash
@@ -112,6 +150,21 @@ task release:mojo
 # 发布到 prefix.dev
 task publish:ffi
 task publish:mojo
+
+```
+
+- ✅ 编译发布 Linux 版本， 基于 `orbstack` 虚拟机
+  - 注意，每次都要把 ffi 库，`3 个 OS 版本`，都发布到 prefix.dev，再发布 uuid 包。（依赖顺序）
+
+```bash
+# 查看可用的虚拟机
+orbctl list 
+
+# 连接 linux-aarch64 架构的 虚拟机, 执行编译+发布
+orbctl run -m u22dev
+
+# 连接 linux-64 架构的 虚拟机, 执行编译+发布
+orbctl run -m u22build
 
 ```
 
